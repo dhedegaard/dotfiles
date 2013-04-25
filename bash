@@ -6,3 +6,5 @@ else
 fi
 # pretty ls
 alias ls='ls --color=auto'
+# xterm title
+export PROMPT_COMMAND="echo -ne \"\033]0;$USER@$HOSTNAME\007\""

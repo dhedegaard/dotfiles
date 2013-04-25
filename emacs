@@ -1,6 +1,6 @@
-; My random settings for emacs, these change once in a while.
-; Check the keybinds section (just below comments) for my awesome
-; keybinds :)
+; I like to share buffers between my windows. As such I can't remember
+; the following arguments for starting emacs that way:
+; $ emacsclient -c -n -a ""
 ;
 ; These are the extensions I use:
 ;
@@ -8,11 +8,11 @@
 ;   URL: http://cx4a.org/software/auto-complete/
 ;   For auto complete in python, elisp and css.
 ;
-; * pyflakes
-;   URL: http://pypi.python.org/pypi/pyflakes
+; * flake8
+;   URL: https://pypi.python.org/pypi/flake8 (or pip install)
 ;   For flymake on .py
 ;
-; * tify
+; * tidy
 ;   URL: http://tidy.sourceforge.net/
 ;   For flymake on .htm/.html/.asp
 ;
@@ -67,6 +67,12 @@
 ;(ispell-change-dictionary "dansk")
 ;;; /GLOBAL SETTINGS ;;;
 
+;;; THEME ;;;
+; req: https://github.com/bbatsov/zenburn-emacs/raw/master/zenburn-theme.el
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'zenburn t)
+;;; /THEME ;;;
+
 ;;; FUNCTION comment/uncomment line function ;;;
 (defun comment-or-uncomment-region-or-line ()
     "Comments or uncomments the region or the current line if there's no active region."
@@ -78,7 +84,7 @@
         (comment-or-uncomment-region beg end)))
 ;;; /FUNCTION comment/uncomment line function ;;;
 
-;;; FLYMAKE python -> pyflakes ;;;
+;;; FLYMAKE python -> flake8 ;;;
   (when (load "flymake" t) 
          (defun flymake-pyflakes-init () 
            (let* ((temp-file (flymake-init-create-temp-buffer-copy 
@@ -86,11 +92,11 @@
               (local-file (file-relative-name 
                            temp-file 
                            (file-name-directory buffer-file-name)))) 
-             (list "pyflakes" (list local-file)))) 
+             (list "flake8" (list local-file)))) 
 
          (add-to-list 'flymake-allowed-file-name-masks 
                   '("\\.py\\'" flymake-pyflakes-init)))
-;;; /FLYMAKE python -> pyflakes ;;;
+;;; /FLYMAKE python -> flake8 ;;;
 
 ;;; FLYMAKE html -> tidy ;;;
 (defun flymake-html-init ()
