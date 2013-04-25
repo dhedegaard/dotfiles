@@ -1,34 +1,32 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                    ;;;
+;;;    INTRODUCTION    ;;;
+;;;                    ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; I like to share buffers between my windows. As such I can't remember
 ; the following arguments for starting emacs that way:
 ; $ emacsclient -c -n -a ""
 ;
-; These are the extensions I use:
-;
-; * auto-complete
-;   URL: http://cx4a.org/software/auto-complete/
-;   For auto complete in python, elisp and css.
-;
-; * flake8
-;   URL: https://pypi.python.org/pypi/flake8 (or pip install)
-;   For flymake on .py
-;
-; * tidy
-;   URL: http://tidy.sourceforge.net/
-;   For flymake on .htm/.html/.asp
-;
-; * ropemacs
-;   URL: http://rope.sourceforge.net/ropemacs.html
-;   Rope integration on Emacs, depends on ropemode and pymacs.
-;
-; TODO:
-; * getting emacs server to run and share sessions between processes.
-; * Integrate auto-complete with ropemacs.
-; * yasnippet with ac.
-; * rsense for ruby ac.
-; * flymake for ruby.
-; * flymake-cursor for displaying errors in the mini-buffer.
+; For elpy integration, make sure to pull some packages from pipy:
+; $ pip install elpy pep8 pyflakes rope
 
-;;; KEYBINDS ;;;
+; On first start, copy the following lines (without prefixed ';') to *stratch*
+; and eval (C-j).
+
+; (package-refresh-contents)
+; (package-install 'zenburn-theme)
+; (package-install 'flycheck)
+; (package-install 'elpa)
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;;                ;;;
+;;;    KEYBINDS    ;;;
+;;;                ;;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+
 (global-set-key (kbd "C-u") 'undo)
 (global-set-key (kbd "C-7") 'comment-or-uncomment-region-or-line)
 (global-set-key [f5] 'compile)
@@ -37,9 +35,15 @@
 (global-set-key [f8] 'next-error)
 (global-set-key [f9] 'menu-bar-mode)
 (windmove-default-keybindings 'super)
-;;; /KEYBINDS ;;;
 
-;;; GLOBAL SETTINGS ;;;
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;;                ;;;
+;;;    SETTINGS    ;;;
+;;;                ;;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+
 (setq inhibit-startup-screen t)         ; don't show startup screen
 (add-to-list 'load-path "~/.emacs.d/")  ; add .emacs.d to load path
 (mouse-wheel-mode t)                    ; enable mouse wheel for scrolling
@@ -56,8 +60,6 @@
 (setq ido-enable-flex-matching t)       ; ido: flexible matching
 (setq ido-everywhere t)                 ; use ido for everything
 (ido-mode 1)                            ; enable ido mode
-; flymake hook on find file
-(add-hook 'find-file-hook 'flymake-find-file-hook)
 ; cperl-mode
 (defalias 'perl-mode 'cperl-mode)       ; use cperl mode instead of perl mode
 ; latex-math mode instead of latex-mode
@@ -65,13 +67,39 @@
 ;; set the ispell dictionary to use.
 (ispell-change-dictionary "english")
 ;(ispell-change-dictionary "dansk")
-;;; /GLOBAL SETTINGS ;;;
 
-;;; THEME ;;;
-; req: https://github.com/bbatsov/zenburn-emacs/raw/master/zenburn-theme.el
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;;                ;;;
+;;;    PACKAGES    ;;;
+;;;                ;;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+
+; Initialize package
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(package-initialize)
+
+; M-x package-install RET zenburn-theme RET
 (load-theme 'zenburn t)
-;;; /THEME ;;;
+
+; M-x package-install RET flycheck RET
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+; $ pip install elpy rope pyflakes pep8
+; M-x package-install RET elpa RET
+(elpy-enable)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                           ;;;
+;;;    SOME NICE FUNCTIONS    ;;;
+;;;                           ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;; FUNCTION comment/uncomment line function ;;;
 (defun comment-or-uncomment-region-or-line ()
@@ -84,55 +112,60 @@
         (comment-or-uncomment-region beg end)))
 ;;; /FUNCTION comment/uncomment line function ;;;
 
-;;; FLYMAKE python -> flake8 ;;;
-  (when (load "flymake" t) 
-         (defun flymake-pyflakes-init () 
-           (let* ((temp-file (flymake-init-create-temp-buffer-copy 
-                              'flymake-create-temp-inplace)) 
-              (local-file (file-relative-name 
-                           temp-file 
-                           (file-name-directory buffer-file-name)))) 
-             (list "flake8" (list local-file)))) 
 
-         (add-to-list 'flymake-allowed-file-name-masks 
-                  '("\\.py\\'" flymake-pyflakes-init)))
-;;; /FLYMAKE python -> flake8 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                       ;;;
+;;;    DEPRECATED BELOW   ;;;
+;;;                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; FLYMAKE html -> tidy ;;;
-(defun flymake-html-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-  	     'flymake-create-temp-inplace))
-	      (local-file (file-relative-name
-	      		        temp-file
-					      (file-name-directory buffer-file-name))))
-    (list "tidy" (list local-file))))
-
-(add-to-list 'flymake-allowed-file-name-masks
-	          '("\\.htm$\\|\\.html$\\|\\.ctp|\\.asp" flymake-html-init))
-
-(add-to-list 'flymake-err-line-patterns
-	          '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
-		         nil 1 2 4))
-;;; /FLYMAKE html -> tidy ;;;
 
 ;;; AUTOCOMPLETE ;;;
 ; req: http://cx4a.org/software/auto-complete/
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/neo2k/.emacs.d/ac-dict")
-(ac-config-default)
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "/home/neo2k/.emacs.d/ac-dict")
+;; (ac-config-default)
 ;;; /AUTOCOMPLETE ;;;
+
+
+;; ;;; FLYMAKE (DEPRECATED) ;;;
+;; (add-hook 'find-file-hook 'flymake-find-file-hook)
+;; ;;; /FLYMAKE (DEPRECATED) ;;;
+;; ;;; FLYMAKE python -> flake8 ;;;
+;;   (when (load "flymake" t) 
+;;          (defun flymake-pyflakes-init () 
+;;            (let* ((temp-file (flymake-init-create-temp-buffer-copy 
+;;                               'flymake-create-temp-inplace)) 
+;;               (local-file (file-relative-name 
+;;                            temp-file 
+;;                            (file-name-directory buffer-file-name)))) 
+;;              (list "flake8" (list local-file)))) 
+
+;;          (add-to-list 'flymake-allowed-file-name-masks 
+;;                   '("\\.py\\'" flymake-pyflakes-init)))
+;; ;;; /FLYMAKE python -> flake8 ;;;
+
+;; ;;; FLYMAKE html -> tidy ;;;
+;; (defun flymake-html-init ()
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;   	     'flymake-create-temp-inplace))
+;; 	      (local-file (file-relative-name
+;; 	      		        temp-file
+;; 					      (file-name-directory buffer-file-name))))
+;;     (list "tidy" (list local-file))))
+
+;; (add-to-list 'flymake-allowed-file-name-masks
+;; 	          '("\\.htm$\\|\\.html$\\|\\.ctp|\\.asp" flymake-html-init))
+
+;; (add-to-list 'flymake-err-line-patterns
+;; 	          '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
+;; 		         nil 1 2 4))
+;;; /FLYMAKE html -> tidy ;;;
 
 ;;; ROPEMACS SPECIFICS ;;;
 ; pymacs: https://github.com/pinard/Pymacs/zipball/master
-(require 'pymacs)
+;; (require 'pymacs)
 ; ropemacs: http://rope.sourceforge.net/ropemacs.html
-(pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport t)
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
 ;;; /ROPEMACS SPECIFICS ;;;
-
-;;; RSENSE (TODO) ;;;
-; req: http://cx4a.org/software/rsense/
-;(setq rsense-home "/usr/lib/rsense-0.3")
-;(add-to-list 'load-path (concat rsense-home "/etc"))
-;(require 'rsense)
-;;; /RSENSE ;;;
