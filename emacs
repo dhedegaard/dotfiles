@@ -17,7 +17,7 @@
 ; (package-refresh-contents)
 ; (package-install 'zenburn-theme)
 ; (package-install 'flycheck)
-; (package-install 'elpa)
+; (package-install 'elpy)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -90,7 +90,7 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; $ pip install elpy rope pyflakes pep8
-; M-x package-install RET elpa RET
+; M-x package-install RET elpy RET
 (elpy-enable)
 
 
