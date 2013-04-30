@@ -18,6 +18,7 @@
 ; (package-install 'zenburn-theme)
 ; (package-install 'flycheck)
 ; (package-install 'elpy)
+; (package-install 'redo+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -90,8 +91,13 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; $ pip install elpy rope pyflakes pep8
-; M-x package-install RET elpy RET
+; M-x package-install RET elpa RET
 (elpy-enable)
+
+; M-x package-install RET redo+ RET
+(require 'redo+)
+(global-set-key (kbd "C-u") 'undo)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
