@@ -96,7 +96,7 @@
 
 ; M-x package-install RET redo+ RET
 (require 'redo+)
-(global-set-key (kbd "C-u") 'undo)
+(global-set-key (kbd "C-i") 'redo)
 
 
 
