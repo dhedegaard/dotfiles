@@ -18,7 +18,7 @@
 ; (package-install 'zenburn-theme)
 ; (package-install 'flycheck)
 ; (package-install 'elpy)
-; (package-install 'redo+)
+; (package-install 'js2-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -94,10 +94,10 @@
 ; M-x package-install RET elpa RET
 (elpy-enable)
 
-; M-x package-install RET redo+ RET
-(require 'redo+)
-(global-set-key (kbd "C-i") 'redo)
-
+; $ npm install -g jshint  # for flycheck.
+; M-x package-install RET js2-mode RET
+(setq load-path (append (list (expand-file-name "~/.emacs.d/js2")) load-path))
+(defalias 'js-mode 'js2-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,61 +117,3 @@
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)))
 ;;; /FUNCTION comment/uncomment line function ;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;                       ;;;
-;;;    DEPRECATED BELOW   ;;;
-;;;                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;; AUTOCOMPLETE ;;;
-; req: http://cx4a.org/software/auto-complete/
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "/home/neo2k/.emacs.d/ac-dict")
-;; (ac-config-default)
-;;; /AUTOCOMPLETE ;;;
-
-
-;; ;;; FLYMAKE (DEPRECATED) ;;;
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-;; ;;; /FLYMAKE (DEPRECATED) ;;;
-;; ;;; FLYMAKE python -> flake8 ;;;
-;;   (when (load "flymake" t) 
-;;          (defun flymake-pyflakes-init () 
-;;            (let* ((temp-file (flymake-init-create-temp-buffer-copy 
-;;                               'flymake-create-temp-inplace)) 
-;;               (local-file (file-relative-name 
-;;                            temp-file 
-;;                            (file-name-directory buffer-file-name)))) 
-;;              (list "flake8" (list local-file)))) 
-
-;;          (add-to-list 'flymake-allowed-file-name-masks 
-;;                   '("\\.py\\'" flymake-pyflakes-init)))
-;; ;;; /FLYMAKE python -> flake8 ;;;
-
-;; ;;; FLYMAKE html -> tidy ;;;
-;; (defun flymake-html-init ()
-;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;   	     'flymake-create-temp-inplace))
-;; 	      (local-file (file-relative-name
-;; 	      		        temp-file
-;; 					      (file-name-directory buffer-file-name))))
-;;     (list "tidy" (list local-file))))
-
-;; (add-to-list 'flymake-allowed-file-name-masks
-;; 	          '("\\.htm$\\|\\.html$\\|\\.ctp|\\.asp" flymake-html-init))
-
-;; (add-to-list 'flymake-err-line-patterns
-;; 	          '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
-;; 		         nil 1 2 4))
-;;; /FLYMAKE html -> tidy ;;;
-
-;;; ROPEMACS SPECIFICS ;;;
-; pymacs: https://github.com/pinard/Pymacs/zipball/master
-;; (require 'pymacs)
-; ropemacs: http://rope.sourceforge.net/ropemacs.html
-;; (pymacs-load "ropemacs" "rope-")
-;; (setq ropemacs-enable-autoimport t)
-;;; /ROPEMACS SPECIFICS ;;;
