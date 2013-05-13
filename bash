@@ -8,13 +8,13 @@ else
 fi
 
 # pretty ls
-ls --color=auto 2>&1 >/dev/null  #test
+ls --color=auto >/dev/null 2>&1  #test
 if [ $? == 0 ]; then
   alias ls='ls --color=auto'
 fi
 
 # pretty grep
-grep --color=auto "" /dev/null  # test
+grep --color=auto "" /dev/null 2>&1  # test
 if [ $? == 0 ] || [ $? == 1 ]; then
   alias grep='grep --color=auto'
 fi
