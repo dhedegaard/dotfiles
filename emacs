@@ -61,6 +61,10 @@
 (setq ido-enable-flex-matching t)       ; ido: flexible matching
 (setq ido-everywhere t)                 ; use ido for everything
 (ido-mode 1)                            ; enable ido mode
+; org-mode
+(setq org-src-fontify-natively t)       ; syntax highlighting in code-blocks.
+; sql-mode
+(add-hook 'sql-mode-hook 'sql-highlight-postgres-keywords) ; Default highlighting to postgres.
 ; cperl-mode
 (defalias 'perl-mode 'cperl-mode)       ; use cperl mode instead of perl mode
 ; latex-math mode instead of latex-mode
