@@ -47,3 +47,4 @@ Release
 java.policy.applet
 javadoc
 *.suo
+.ropeproject
