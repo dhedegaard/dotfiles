@@ -45,7 +45,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 
+(blink-cursor-mode 0)                   ; don't blink the cursor
 (setq inhibit-startup-screen t)         ; don't show startup screen
+(setq initial-scratch-message "")       ; don't show scratch message
 (add-to-list 'load-path "~/.emacs.d/")  ; add .emacs.d to load path
 (mouse-wheel-mode t)                    ; enable mouse wheel for scrolling
 (setq-default fill-column 80)           ; default to 80 chars columns
