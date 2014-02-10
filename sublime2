@@ -1,0 +1,20 @@
+{
+	"bold_folder_labels": true,
+	"draw_white_space": "selection",
+	"font_face": "Ubuntu mono",
+	"font_size": 14.0,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"save_on_focus_lost": true,
+	"selectedBrowser": "chrome",
+	"soda_folder_icons": true,
+	"tab_size": 4,
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}
+
