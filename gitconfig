@@ -3,3 +3,5 @@
 [user]
 	name = Dennis Hedegaard
 	email = dennis@dhedegaard.dk
+[core]
+    autocrlf = input
