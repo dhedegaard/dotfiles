@@ -49,3 +49,5 @@ javadoc
 *.suo
 .ropeproject
 .vagrant
+*.sublime-project
+*.sublime-workspace
