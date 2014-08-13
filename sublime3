@@ -1,0 +1,11 @@
+{
+	"always_show_minimap_viewport": true,
+	"color_scheme": "Packages/User/Monokai (SL).tmTheme",
+	"default_line_ending": "unix",
+	"highlight_line": true,
+	"show_encoding": true,
+	"soda_classic_tabs": true,
+	"theme": "Soda Dark 3.sublime-theme",
+	"translate_tabs_to_spaces": false,
+	"trim_trailing_white_space_on_save": true
+}
