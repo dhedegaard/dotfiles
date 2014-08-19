@@ -41,6 +41,7 @@ Makefile.in
 bin
 build
 install_manifest.txt
+.DS_Store
 
 Debug
 Release
