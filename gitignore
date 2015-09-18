@@ -15,6 +15,7 @@
 *.o
 *.class
 *.pyc
+*.pyo
 aclocal.m4
 autom4te.cache
 config.h
@@ -52,3 +53,7 @@ javadoc
 .vagrant
 *.sublime-project
 *.sublime-workspace
+.coverage
+htmlcov
+*.sqlite
+*.sqlite3
