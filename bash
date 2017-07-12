@@ -32,3 +32,5 @@ alias s="ssh"
 if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
 fi
+
+alias drm="docker ps -qa | xargs docker rm ; docker images -qa | xargs docker rmi"
