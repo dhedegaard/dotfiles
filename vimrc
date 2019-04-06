@@ -13,3 +13,9 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
+
+# Indent with 2 spaces.
+filetype plugin indent on
+set tabstop=2
+set shiftwidth=2
+set expandtab
