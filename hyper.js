@@ -4,7 +4,7 @@
 
 module.exports = {
   config: {
-    windowSize: [700, 550],
+    windowSize: [800, 600],
 
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
