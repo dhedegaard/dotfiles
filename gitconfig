@@ -5,6 +5,7 @@
 	email = dennis@dhedegaard.dk
 [core]
 	autocrlf = input
+        ignorecase = false
 [alias]
 	st = status
 	ci = commit --verbose
