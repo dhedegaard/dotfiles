@@ -30,3 +30,5 @@
         rpo = remote prune origin
 [pull]
         rebase = false
+[merge]
+        conflictstyle = diff3
