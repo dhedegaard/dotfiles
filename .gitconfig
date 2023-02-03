@@ -32,3 +32,6 @@
         rebase = false
 [merge]
         conflictstyle = diff3
+[push]
+        autoSetupRemote = true
+	
