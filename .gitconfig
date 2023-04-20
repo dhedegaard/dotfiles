@@ -1,11 +1,12 @@
 [color]
-	ui = auto
+  ui = auto
 [user]
-	name = Dennis Hedegaard
-	email = dennis@dhedegaard.dk
+  name = Dennis Hedegaard
+  email = dennis@dhedegaard.dk
 [core]
-	autocrlf = input
-        ignorecase = false
+  autocrlf = input
+  ignorecase = false
+  excludesFile = ~/.gitignore
 [alias]
 	st = status
 	ci = commit --verbose
